@@ -1,0 +1,9 @@
+services:
+  marketplace-helper:
+    build:
+      context: .
+    container_name: marketplace-helper
+    env_file:
+      - ./.env
+    ports:
+      - 80:80
