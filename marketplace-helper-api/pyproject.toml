@@ -1,0 +1,28 @@
+[project]
+name = "marketplace-helper-api"
+version = "0.1.0"
+description = "API сервиса автоматизации для маркетплейсов"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.11.11",
+    "alembic>=1.14.0",
+    "asyncpg>=0.30.0",
+    "fastapi[standard]>=0.115.6",
+    "g4f[openai]>=0.4.6.1",
+    "passlib[bcrypt]>=1.7.4",
+    "pydantic-settings>=2.7.1",
+    "pyjwt>=2.10.1",
+    "sqlmodel>=0.0.22",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24.10.0",
+    "isort>=5.13.2",
+]
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"

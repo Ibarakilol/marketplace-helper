@@ -1,9 +1,29 @@
 services:
-  marketplace-helper:
-    build:
-      context: .
-    container_name: marketplace-helper
+  db:
+    image: postgres:15
+    container_name: marketplace-helper-db
     env_file:
-      - ./.env
+      - marketplace-helper-api/.env
+
+  marketplace-helper-api:
+    build:
+      context: ./marketplace-helper-api
+    container_name: marketplace-helper-api
+    env_file:
+      - marketplace-helper-api/.env
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+    command: bash -c "alembic upgrade head && fastapi run --workers 1 app/main.py"
+
+  marketplace-helper-web:
+    build:
+      context: ./marketplace-helper-web
+    container_name: marketplace-helper-web
+    env_file:
+      - marketplace-helper-web/.env
+    depends_on:
+      - marketplace-helper-api
     ports:
       - 80:80

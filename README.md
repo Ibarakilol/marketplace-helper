@@ -4,9 +4,13 @@ Pet-проект автоматизации ответов на отзывы Wil
 
 ## Dev стак
 
-React.js, TypeScript, MobX, Axios, Tailwind CSS, shadcn/ui
+**WEB:** React.js, TypeScript, MobX, Axios, Tailwind CSS, shadcn/ui
+
+**API:** FastAPI, SQLModel, PostgreSQL, Alembic, asyncio/aiohttp
 
 ## Запуск проекта
+
+Запустить весь проект можно на любом сервере с помощью Docker Compose, либо локально каждый отдельно
 
 1. **Клонирование репозитория:**
 
@@ -17,20 +21,22 @@ cd marketplace-helper
 
 2. **Настройка переменных среды:**
 
-Переименовать файл `.env.example` на `.env`
+**WEB:** Переименовать файл `.env.example` на `.env` в папке `marketplace-helper-web` и удалить `VITE_APP_JWT_TOKEN`, если установка происходит через Docker Compose, либо вместе с API
+
+**API:** Переименовать файл `.env.example` на `.env` в папке `marketplace-helper-api`, изменить значения переменных `changethis` и поменять `POSTGRES_SERVER` на `db`, если установка происходит через Docker Compose
 
 3. **Установка зависимостей и запуск:**
 
 _Через Docker Compose_
 
 ```bash
-sudo docker compose build
-sudo docker compose up
+docker compose build
+docker compose up
 ```
 
-_Через Yarn_
+_Для тех, кто хочет локально потестировать каждый проект (Web/API) отдельно_
 
 ```bash
-yarn install
-yarn dev
+chmod a+x ./scripts/web.sh && ./scripts/web.sh
+chmod a+x ./scripts/api.sh && ./scripts/api.sh
 ```
