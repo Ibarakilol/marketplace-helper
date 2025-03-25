@@ -9,14 +9,14 @@ from app.wb.models import WbFeedback
 client = Client()
 
 
-class GeneratorService:
+class ReplierService:
     @staticmethod
     def ask_gpt(prompt: str) -> str:
         response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
         return response.choices[0].message.content
 
     @staticmethod
-    def generate_reply(current_user: User, feedback: WbFeedback) -> str | None:
+    def generate_feedback_reply(current_user: User, feedback: WbFeedback) -> str | None:
         reply = f"Здравствуйте{f' {feedback.name}! ' if feedback.name else '! '}"
         random_recommendations = []
 
@@ -32,7 +32,7 @@ class GeneratorService:
         )
 
         try:
-            chat_response = GeneratorService.ask_gpt(prompt)
+            chat_response = ReplierService.ask_gpt(prompt)
 
             if chat_response:
                 reply += chat_response

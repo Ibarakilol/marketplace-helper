@@ -62,7 +62,7 @@ const Header = observer(({ tabs, title }: HeaderProps) => {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-[96px_1fr] items-center gap-4">
-              <Label htmlFor="wbSupplierName">Название поставщика</Label>
+              <Label htmlFor="wbSupplierName">Название продавца</Label>
               <Input
                 id="wbSupplierName"
                 disabled={isProcessing}

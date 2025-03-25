@@ -17,7 +17,7 @@ export enum ApiResponseStatus {
 }
 
 export const ApiRoute = {
-  GENERATE_REPLY: 'replier/generate-reply',
+  GENERATE_FEEDBACK_REPLY: 'replier/generate-feedback-reply',
   USERS_REGISTER: 'users/register',
   USERS_LOGIN: 'users/login',
   USERS_PROFILE: 'users/profile',

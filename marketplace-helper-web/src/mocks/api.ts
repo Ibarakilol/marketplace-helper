@@ -57,7 +57,7 @@ export const getMockedApiResponse = ({
           ),
         };
       },
-      [ApiRoute.GENERATE_REPLY]: () => {
+      [ApiRoute.GENERATE_FEEDBACK_REPLY]: () => {
         const { name } = requestPayload;
 
         return { data: `Добрый день, ${name}! Спасибо за отзыв!` };

@@ -5,7 +5,7 @@ import type { IFeedback, TApiResponse } from '@/interfaces';
 
 export const fetchReplier = async (feedback: IFeedback): Promise<TApiResponse<string>> => {
   try {
-    const { data } = await doPost<string>(ApiRoute.GENERATE_REPLY, feedback);
+    const { data } = await doPost<string>(ApiRoute.GENERATE_FEEDBACK_REPLY, feedback);
 
     return { isSuccess: true, data };
   } catch (err: any) {
