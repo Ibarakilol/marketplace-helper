@@ -23,6 +23,7 @@ export const columns: ColumnDef<IFeedback>[] = [
       <Checkbox
         className="grid h-[18px] w-[18px]"
         checked={row.getIsSelected()}
+        disabled={row.getValue('replyText')}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Выбрать"
       />

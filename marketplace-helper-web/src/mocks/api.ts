@@ -21,6 +21,8 @@ export const getMockedApiResponse = ({
       data.forEach((value, key) => {
         requestPayload[key] = parseJSON(value);
       });
+    } else if (typeof data === 'string') {
+      console.log(data);
     } else {
       requestPayload = JSON.parse(data);
     }

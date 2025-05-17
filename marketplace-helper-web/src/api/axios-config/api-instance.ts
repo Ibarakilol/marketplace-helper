@@ -2,7 +2,7 @@ import baseAxios, { type InternalAxiosRequestConfig } from 'axios';
 
 import globalAppStore from '@/stores/global-app-store';
 
-import { ApiResponseStatus } from '@/constants';
+import { ApiResponseStatus, USE_MOCK_DATA } from '@/constants';
 import { getMockedApiResponse } from '@/mocks/api';
 
 const api = baseAxios.create({
@@ -35,7 +35,7 @@ api.interceptors.response.use(
       config: { method = '', url = '', data = '', params = {} } = {},
     } = error?.response || error;
 
-    if (status === ApiResponseStatus.NOT_FOUND || status === ApiResponseStatus.INTERNAL_ERROR) {
+    if (USE_MOCK_DATA) {
       return Promise.resolve(
         getMockedApiResponse({
           method,

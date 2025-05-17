@@ -2,6 +2,8 @@
 
 Проект по автоматизации ответов на отзывы Wildberries с помощью ИИ.
 
+![Marketplace Helper](marketplace-helper-web/public/demo.png)
+
 ## Dev стак
 
 **WEB:** React.js, TypeScript, MobX, Axios, Tailwind CSS, shadcn/ui
