@@ -1,23 +1,21 @@
 export interface IApiFeedback {
   id: string;
   feedback_id: string;
-  sku: number;
+  name: string;
   product_name: string;
   product_valuation: number;
-  name: string;
   reply_text?: string;
+  sku: number;
   text: string;
-  with_photo: boolean;
 }
 
 export interface IFeedback {
   id: string;
   feedbackId: string;
-  sku: string;
+  name: string;
   productName: string;
   productValuation: number;
-  name: string;
   replyText?: string;
+  sku: string;
   text: string;
-  withPhoto: boolean;
 }

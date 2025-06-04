@@ -1,20 +1,16 @@
-import { NavLink } from 'react-router-dom';
-
-import { buttonVariants } from './button';
+import { Button } from './button';
 
 interface TabProps {
-  link: string;
-  title: string;
+  isTabActive: boolean;
+  label: string;
+  handleTabChange: () => void;
 }
 
-const Tab = ({ link, title }: TabProps) => {
+const Tab = ({ isTabActive, label, handleTabChange }: TabProps) => {
   return (
-    <NavLink
-      className={({ isActive }) => buttonVariants({ variant: isActive ? 'default' : 'outline' })}
-      to={link}
-    >
-      {title}
-    </NavLink>
+    <Button variant={isTabActive ? 'default' : 'outline'} onClick={handleTabChange}>
+      {label}
+    </Button>
   );
 };
 

@@ -5,14 +5,13 @@ import LoginPage from '@/pages/login-page';
 import MainPage from '@/pages/main-page';
 import RegisterPage from '@/pages/register-page';
 
-import { AppRoute, WILDBERRIES_TAB_ROUTES } from '@/constants';
+import { AppRoute } from '@/constants';
 
 const MAIN_ROUTES = [
   {
-    path: AppRoute.WILDBERRIES_FEEDBACKS,
+    path: AppRoute.WILDBERRIES,
     component: MainPage,
-    tabs: WILDBERRIES_TAB_ROUTES,
-    title: 'Wildberries отзывы',
+    title: 'Wildberries',
   },
 ];
 
@@ -28,11 +27,11 @@ const AUTH_ROUTES = [
 ];
 
 export const MainRoutes = () => {
-  return MAIN_ROUTES.map(({ path, component: Component, ...props }) => (
+  return MAIN_ROUTES.map(({ path, component: Component, title }) => (
     <Route
       key={path}
       element={
-        <MainLayout {...props}>
+        <MainLayout title={title}>
           <Component />
         </MainLayout>
       }

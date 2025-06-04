@@ -27,6 +27,7 @@ class WbService:
     def parse_question(question: dict) -> WbQuestion:
         return {
             "question_id": question["id"],
+            "sku": question["productDetails"]["nmId"],
             "product_name": question["productDetails"]["productName"],
             "text": question["text"],
             "answer_text": question["answer"] if question["answer"] else None,

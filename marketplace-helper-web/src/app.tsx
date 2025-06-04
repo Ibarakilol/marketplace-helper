@@ -22,7 +22,7 @@ const App = observer(() => {
         <Routes>
           {!token && AuthRoutes()}
           <Route element={<PrivateRoute isRedirect={!token} />}>{MainRoutes()}</Route>
-          <Route element={<Navigate replace to={AppRoute.WILDBERRIES_FEEDBACKS} />} path="*" />
+          <Route element={<Navigate replace to={AppRoute.WILDBERRIES} />} path="*" />
         </Routes>
       </Router>
       <Toaster />

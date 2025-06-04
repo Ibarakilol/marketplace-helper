@@ -3,16 +3,52 @@ import { Loader2 } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
 
 import DataTable from '@/components/common/data-table';
-import { columns } from '@/components/common/feedback-columns';
+import feedbackColumns from '@/components/common/feedback-columns';
+import questionColumns from '@/components/common/question-columns';
 
 import wildberriesStore from '@/stores/wildberries-store';
 
+import { WildberriesTab } from '@/constants';
+
 const MainPage = observer(() => {
-  const { isLoading, feedbacks, isProcessing, processFeedbacks } = wildberriesStore;
+  const {
+    activeTab,
+    isLoading,
+    feedbacks,
+    questions,
+    isProcessing,
+    processFeedbacks,
+    processQuestions,
+  } = wildberriesStore;
 
   useEffect(() => {
-    wildberriesStore.fetchFeedbacks();
+    return () => wildberriesStore.resetStore();
   }, []);
+
+  const renderTab = () => {
+    switch (activeTab) {
+      case WildberriesTab.FEEDBACKS:
+        return (
+          <DataTable
+            columns={feedbackColumns}
+            data={feedbacks}
+            isProcessing={isProcessing}
+            onProcessItems={processFeedbacks}
+          />
+        );
+      case WildberriesTab.QUESTIONS:
+        return (
+          <DataTable
+            columns={questionColumns}
+            data={questions}
+            isProcessing={isProcessing}
+            onProcessItems={processQuestions}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="h-full">
@@ -21,12 +57,7 @@ const MainPage = observer(() => {
           <Loader2 className="h-10 w-10 animate-spin" />
         </div>
       ) : (
-        <DataTable
-          columns={columns}
-          data={feedbacks}
-          isProcessing={isProcessing}
-          onProcessFeedbacks={processFeedbacks}
-        />
+        renderTab()
       )}
     </div>
   );

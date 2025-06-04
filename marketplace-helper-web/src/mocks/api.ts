@@ -1,6 +1,7 @@
 import type { InternalAxiosRequestConfig } from 'axios';
 
 import { MOCK_API_FEEDBACKS } from './feedbacks';
+import { MOCK_API_QUESTIONS } from './questions';
 import { MOCK_API_TOKEN, MOCK_API_USER } from './users';
 
 import { ApiResponseStatus, ApiRoute, RESPONSE_HEADERS_TOTAL_COUNT } from '@/constants';
@@ -21,8 +22,6 @@ export const getMockedApiResponse = ({
       data.forEach((value, key) => {
         requestPayload[key] = parseJSON(value);
       });
-    } else if (typeof data === 'string') {
-      console.log(data);
     } else {
       requestPayload = JSON.parse(data);
     }
@@ -34,8 +33,17 @@ export const getMockedApiResponse = ({
         return { data: MOCK_API_USER };
       },
       [ApiRoute.WB_FEEDBACKS]: () => {
-        const { limit = 5, offset = 0 } = params || {};
+        const { limit = 10, offset = 0 } = params || {};
         const data = MOCK_API_FEEDBACKS;
+
+        return {
+          data: data.slice(offset, offset + limit),
+          headers: { [RESPONSE_HEADERS_TOTAL_COUNT]: data.length },
+        };
+      },
+      [ApiRoute.WB_QUESTIONS]: () => {
+        const { limit = 10, offset = 0 } = params || {};
+        const data = MOCK_API_QUESTIONS;
 
         return {
           data: data.slice(offset, offset + limit),
@@ -50,19 +58,32 @@ export const getMockedApiResponse = ({
       [ApiRoute.USERS_LOGIN]: () => {
         return { data: MOCK_API_TOKEN };
       },
-      [ApiRoute.WB_PROCESS_FEEDBACK]: () => {
-        const { feedback_id, reply } = requestPayload;
+      [ApiRoute.WB_FEEDBACK_PROCESS]: () => {
+        const { feedback_id } = requestPayload;
+        const selectedFeedback = MOCK_API_FEEDBACKS.find(
+          (feedback) => feedback.feedback_id === feedback_id
+        );
 
         return {
-          data: MOCK_API_FEEDBACKS.map((feedback) =>
-            feedback.id === feedback_id ? { ...feedback, reply } : feedback
-          ),
+          data: {
+            ...selectedFeedback,
+            reply_text:
+              'Здравствуйте! Очень рады, что Вы остались довольны покупкой нашего товара и поставили высокую оценку! Наша команда постоянно работает над тем, чтобы предоставить клиентам высококачественные товары, которые будут радовать и приносить пользу. Пользуйтесь с удовольствием! Всего Вам наилучшего и отличного настроения!',
+          },
         };
       },
-      [ApiRoute.GENERATE_FEEDBACK_REPLY]: () => {
-        const { name } = requestPayload;
+      [ApiRoute.WB_QUESTION_PROCESS]: () => {
+        const { question_id } = requestPayload;
+        const selectedQuestion = MOCK_API_QUESTIONS.find(
+          (question) => question.question_id === question_id
+        );
 
-        return { data: `Добрый день, ${name}! Спасибо за отзыв!` };
+        return {
+          data: {
+            ...selectedQuestion,
+            reply_text: 'Добрый день! Спасибо за вопрос!',
+          },
+        };
       },
     },
     patch: {
@@ -94,6 +115,10 @@ export const getMockedApiResponse = ({
     case 'get':
       matchRoute(ApiRoute.WB_FEEDBACK(API_ROUTE_ID_REGEX), (wbFeedbackId) => {
         return { data: MOCK_API_FEEDBACKS.find((feedback) => feedback.id === wbFeedbackId) };
+      });
+
+      matchRoute(ApiRoute.WB_QUESTION(API_ROUTE_ID_REGEX), (wbQuestionId) => {
+        return { data: MOCK_API_QUESTIONS.find((question) => question.id === wbQuestionId) };
       });
 
       break;

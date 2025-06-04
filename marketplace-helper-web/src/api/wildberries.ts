@@ -1,8 +1,8 @@
 import { doGet, doPost } from './axios-config';
 
-import { mapApiToFeedback } from '@/adapters';
+import { mapApiToFeedback, mapApiToQuestion } from '@/adapters';
 import { ApiRoute } from '@/constants';
-import type { IApiFeedback, IFeedback, TApiResponse } from '@/interfaces';
+import type { IApiFeedback, IApiQuestion, IFeedback, IQuestion, TApiResponse } from '@/interfaces';
 
 export const fetchWbFeedbacks = async (): Promise<TApiResponse<IFeedback[]>> => {
   try {
@@ -27,16 +27,51 @@ export const fetchWbFeedback = async (feedbackId: string): Promise<TApiResponse<
 };
 
 export const fetchProcessWbFeedback = async (
-  feedbackId: string,
-  replyText: string
-): Promise<TApiResponse> => {
+  feedbackId: string
+): Promise<TApiResponse<IFeedback>> => {
   try {
-    await doPost<IApiFeedback>(ApiRoute.WB_PROCESS_FEEDBACK, {
+    const { data } = await doPost<IApiFeedback>(ApiRoute.WB_FEEDBACK_PROCESS, {
       feedback_id: feedbackId,
-      reply: replyText,
     });
 
-    return { isSuccess: true };
+    return { isSuccess: true, data: mapApiToFeedback(data) };
+  } catch (err: any) {
+    console.log(err);
+    return { isSuccess: false, error: err.response?.data?.detail };
+  }
+};
+
+export const fetchWbQuestions = async (): Promise<TApiResponse<IQuestion[]>> => {
+  try {
+    const { data } = await doGet<IApiQuestion[]>(ApiRoute.WB_QUESTIONS);
+
+    return { isSuccess: true, data: data.map(mapApiToQuestion) };
+  } catch (err: any) {
+    console.log(err);
+    return { isSuccess: false, error: err.response?.data?.detail };
+  }
+};
+
+export const fetchWbQuestion = async (questionId: string): Promise<TApiResponse<IQuestion>> => {
+  try {
+    const { data } = await doGet<IApiQuestion>(ApiRoute.WB_QUESTION(questionId));
+
+    return { isSuccess: true, data: mapApiToQuestion(data) };
+  } catch (err: any) {
+    console.log(err);
+    return { isSuccess: false, error: err.response?.data?.detail };
+  }
+};
+
+export const fetchProcessWbQuestion = async (
+  questionId: string
+): Promise<TApiResponse<IQuestion>> => {
+  try {
+    const { data } = await doPost<IApiQuestion>(ApiRoute.WB_QUESTION_PROCESS, {
+      question_id: questionId,
+    });
+
+    return { isSuccess: true, data: mapApiToQuestion(data) };
   } catch (err: any) {
     console.log(err);
     return { isSuccess: false, error: err.response?.data?.detail };

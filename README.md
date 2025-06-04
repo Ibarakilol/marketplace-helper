@@ -1,6 +1,6 @@
 # Marketplace Helper
 
-Проект по автоматизации ответов на отзывы Wildberries с помощью ИИ.
+Проект по автоматизации ответов на отзывы/вопросы на маркетплейсах с помощью ИИ.
 
 ![Marketplace Helper](marketplace-helper-web/public/demo.png)
 
@@ -23,9 +23,9 @@ cd marketplace-helper
 
 2. **Настройка переменных среды:**
 
-**WEB:** Переименовать файл `.env.example` на `.env` в папке `marketplace-helper-web` и удалить `VITE_APP_JWT_TOKEN`, если установка происходит через Docker Compose, либо вместе с API
+**WEB:** Переименовать файл `.env.example` на `.env` в папке `marketplace-helper-web`, удалить `VITE_APP_JWT_TOKEN` и изменить `VITE_USE_MOCK_DATA` на `false`, если установка происходит через Docker Compose, либо вместе с API
 
-**API:** Переименовать файл `.env.example` на `.env` в папке `marketplace-helper-api`, изменить значения переменных `changethis` и поменять `POSTGRES_SERVER` на `db`, если установка происходит через Docker Compose
+**API:** Переименовать файл `.env.example` на `.env` в папке `marketplace-helper-api`, изменить значения переменных `changethis` на указанные вами и поменять `POSTGRES_SERVER` на `db`, если установка происходит через Docker Compose
 
 3. **Установка зависимостей и запуск:**
 

@@ -14,7 +14,7 @@ const Navbar = observer(() => {
   return (
     <nav className="[grid-area:navbar] bg-zinc-800 grid grid-rows-[1fr_max-content] justify-items-center pt-5 pb-6">
       <ul className="grid gap-5 content-start">
-        <NavbarItem linkProps={{ url: AppRoute.WILDBERRIES_FEEDBACKS }} tooltipText="Wildberries">
+        <NavbarItem linkProps={{ url: AppRoute.WILDBERRIES }} tooltipText="Wildberries">
           <WildberriesIcon />
         </NavbarItem>
       </ul>

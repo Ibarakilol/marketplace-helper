@@ -15,18 +15,18 @@ import { Label } from '@/components/ui/label';
 import TabList from './tab-list';
 
 import userStore from '@/stores/user-store';
+import wildberriesStore from '@/stores/wildberries-store';
 
 import { useToast } from '@/hooks/use-toast';
-import type { ITab } from '@/interfaces';
 
 interface HeaderProps {
-  tabs?: ITab[];
   title: string;
 }
 
-const Header = observer(({ tabs, title }: HeaderProps) => {
+const Header = observer(({ title }: HeaderProps) => {
   const { toast } = useToast();
   const { user, isProcessing, updateUserProfile } = userStore;
+  const { activeTab, headerTabs, setActiveTab } = wildberriesStore;
   const [wbApiKey, setWbApiKey] = useState<string>('');
   const [wbSupplierName, setWbSupplierName] = useState<string>(user?.wbSupplierName || '');
 
@@ -49,7 +49,7 @@ const Header = observer(({ tabs, title }: HeaderProps) => {
   return (
     <header className="grid items-center bg-white border-solid border-b border-b-zinc-200 grid-cols-[1fr_auto_1fr] justify-between px-8 [grid-area:header]">
       <h1 className="font-bold">{title}</h1>
-      {tabs && <TabList tabs={tabs} />}
+      <TabList activeTab={activeTab} tabs={headerTabs} handleTabChange={setActiveTab} />
       <Dialog>
         <DialogTrigger asChild>
           <Button className="w-fit justify-self-end" variant="outline">

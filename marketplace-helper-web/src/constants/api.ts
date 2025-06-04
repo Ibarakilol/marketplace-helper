@@ -17,11 +17,13 @@ export enum ApiResponseStatus {
 }
 
 export const ApiRoute = {
-  GENERATE_FEEDBACK_REPLY: 'replier/generate-feedback-reply',
   USERS_REGISTER: 'users/register',
   USERS_LOGIN: 'users/login',
   USERS_PROFILE: 'users/profile',
-  WB_FEEDBACKS: 'wb',
-  WB_FEEDBACK: (feedbackId: string) => `wb/${feedbackId}`,
-  WB_PROCESS_FEEDBACK: 'wb/process-feedback',
+  WB_FEEDBACKS: 'wb/feedbacks',
+  WB_FEEDBACK: (feedbackId: string) => `wb/feedbacks/${feedbackId}`,
+  WB_FEEDBACK_PROCESS: 'wb/feedbacks/process-feedback',
+  WB_QUESTIONS: 'wb/questions',
+  WB_QUESTION: (questionId: string) => `wb/questions/${questionId}`,
+  WB_QUESTION_PROCESS: 'wb/questions/process-question',
 };

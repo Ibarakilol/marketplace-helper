@@ -27,24 +27,24 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isProcessing: boolean;
-  onProcessFeedbacks: (selectedFeedbacks: TData[]) => Promise<void>;
+  onProcessItems: (selectedItems: TData[]) => Promise<void>;
 }
 
 const DataTable = <TData, TValue>({
   columns,
   data,
   isProcessing,
-  onProcessFeedbacks,
+  onProcessItems,
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [selectedFeedbacks, setSelectedFeedbacks] = useState<TData[]>([]);
+  const [selectedItems, setSelectedItems] = useState<TData[]>([]);
 
   useEffect(() => {
-    const selectedFeedbacks = data.filter((_, idx) => rowSelection[idx]);
+    const selectedItems = data.filter((_, idx) => rowSelection[idx]);
 
-    setSelectedFeedbacks(selectedFeedbacks);
+    setSelectedItems(selectedItems);
   }, [data, rowSelection]);
 
   const table = useReactTable({
@@ -67,24 +67,21 @@ const DataTable = <TData, TValue>({
   const canPreviousPage = table.getCanPreviousPage();
   const canNextPage = table.getCanNextPage();
 
-  const handleProcessFeedback = async () => {
-    await onProcessFeedbacks(selectedFeedbacks);
+  const handleProcessItem = async () => {
+    await onProcessItems(selectedItems);
   };
 
   return (
     <div className="grid gap-4 p-8">
-      <div className="grid grid-cols-[1fr_160px] justify-between items-center">
+      <div className="grid grid-cols-[1fr_180px] justify-between items-center">
         <Input
           className="max-w-80"
           placeholder="Фильтр по SKU"
           value={(table.getColumn('sku')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('sku')?.setFilterValue(event.target.value)}
         />
-        <Button
-          disabled={!selectedFeedbacks.length || isProcessing}
-          onClick={handleProcessFeedback}
-        >
-          {isProcessing ? 'Обрабатывается...' : 'Обработать отзывы'}
+        <Button disabled={!selectedItems.length || isProcessing} onClick={handleProcessItem}>
+          {isProcessing ? 'Обрабатывается...' : 'Обработать выбранное'}
         </Button>
       </div>
       <Table className="border">

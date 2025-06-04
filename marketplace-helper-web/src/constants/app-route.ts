@@ -1,7 +1,5 @@
 export enum AppRoute {
   LOGIN = '/login',
   REGISTER = '/register',
-  WILDBERRIES_FEEDBACKS = '/wildberries/feedbacks',
+  WILDBERRIES = '/wildberries',
 }
-
-export const WILDBERRIES_TAB_ROUTES = [{ link: AppRoute.WILDBERRIES_FEEDBACKS, title: 'Отзывы' }];

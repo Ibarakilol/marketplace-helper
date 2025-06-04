@@ -1,4 +1,6 @@
+import type { WildberriesTab } from '@/constants';
+
 export interface ITab {
-  link: string;
-  title: string;
+  label: string;
+  tab: WildberriesTab;
 }

@@ -14,6 +14,7 @@ class WbFeedback(SQLModel):
 
 class WbQuestion(SQLModel):
     question_id: str = Field(unique=True, index=True)
+    sku: int
     product_name: str = Field(max_length=255)
     text: str
     answer_text: str | None = None

@@ -4,9 +4,9 @@ import { ArrowUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 
-import type { IFeedback } from '@/interfaces';
+import type { IQuestion } from '@/interfaces';
 
-const feedbackColumns: ColumnDef<IFeedback>[] = [
+const questionColumns: ColumnDef<IQuestion>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -23,7 +23,7 @@ const feedbackColumns: ColumnDef<IFeedback>[] = [
       <Checkbox
         className="grid h-[18px] w-[18px]"
         checked={row.getIsSelected()}
-        disabled={row.getValue('replyText')}
+        disabled={row.getValue('answerText')}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Выбрать"
       />
@@ -49,19 +49,11 @@ const feedbackColumns: ColumnDef<IFeedback>[] = [
     header: 'Товар',
   },
   {
-    accessorKey: 'productValuation',
-    header: 'Оценка товара',
-  },
-  {
-    accessorKey: 'name',
-    header: 'Имя',
-  },
-  {
     accessorKey: 'text',
-    header: 'Текст',
+    header: 'Вопрос',
   },
   {
-    accessorKey: 'replyText',
+    accessorKey: 'answerText',
     header: ({ column }) => {
       return (
         <Button
@@ -76,4 +68,4 @@ const feedbackColumns: ColumnDef<IFeedback>[] = [
   },
 ];
 
-export default feedbackColumns;
+export default questionColumns;

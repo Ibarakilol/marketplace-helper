@@ -6,7 +6,6 @@ export const mapApiToFeedback = ({
   product_name,
   product_valuation,
   reply_text,
-  with_photo,
   ...rest
 }: IApiFeedback): IFeedback => {
   return {
@@ -16,6 +15,5 @@ export const mapApiToFeedback = ({
     productName: product_name,
     productValuation: product_valuation,
     replyText: reply_text,
-    withPhoto: with_photo,
   };
 };
