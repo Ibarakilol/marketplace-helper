@@ -9,5 +9,12 @@ pip install uv
 # Установка зависимостей для api
 uv sync
 
+# Запуск виртуального окружения
+if [[ "$OSTYPE" == "win32" ]]; then
+  source .venv/Scripts/activate
+else
+  source .venv/bin/activate
+fi
+
 # Запуск сервера
-fastapi dev
+alembic upgrade head && fastapi dev

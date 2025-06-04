@@ -10,3 +10,10 @@ class WbFeedback(SQLModel):
     text: str | None = None
     with_photo: bool
     reply_text: str | None = None
+
+
+class WbQuestion(SQLModel):
+    question_id: str = Field(unique=True, index=True)
+    product_name: str = Field(max_length=255)
+    text: str
+    answer_text: str | None = None
